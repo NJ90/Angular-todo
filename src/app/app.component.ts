@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'Angular-test';
+
+  constructor(){
+    console.log('working');
+    var num = 1;
+    console.log('number ->', num);
+    console.log(num * 10);
+  }
 }
