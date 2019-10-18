@@ -15,3 +15,15 @@ export class AppComponent {
     console.log(num * 10);
   }
 }
+
+
+  function getClosure(){
+  var text = 'nj'
+  
+  return function(){
+   return text;
+  };
+  }
+  
+  var closure = getClosure();
+  console.log(closure());
