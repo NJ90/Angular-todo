@@ -1,29 +1,28 @@
 import { Component } from '@angular/core';
+import { trigger, state, style, animate, transition } from '@angular/animations';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
+  animations: []
 })
+
 export class AppComponent {
   title = 'Angular-test';
 
   constructor(){
-    console.log('working');
-    var num = 1;
-    console.log('number ->', num);
-    console.log(num * 10);
+
+    function getClosure(){
+      var text = 'nameejang'
+      
+      return function(){
+       return text;
+      };
+    }
+      
+      var closure = getClosure();
+      console.log(closure());    
   }
 }
 
-
-  function getClosure(){
-  var text = 'nj'
-  
-  return function(){
-   return text;
-  };
-  }
-  
-  var closure = getClosure();
-  console.log(closure());
