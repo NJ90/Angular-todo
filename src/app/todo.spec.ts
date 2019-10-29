@@ -6,7 +6,7 @@ describe('Todo', () => {
   });
 
   it('should accept values in the contructor', () => {
-  let todo = new Todo({
+    let todo = new Todo({
     title:'hello',
     complete: true
   });

@@ -1,9 +1,9 @@
 export class Todo {
     id: number;                  //number, ID of the todo item
-    title: string = '';          //string, title of the todo item
-    complete: boolean = false;   //boolean, whether or not the todo item is complete
+    title = '';          //string, title of the todo item
+    complete = false;   //boolean, whether or not the todo item is complete
 
-    constructor(values: Objaect = {}) {
+    constructor(values: Object = {}) {
         Object.assign(this, values);
     }
 }
