@@ -1,6 +1,6 @@
 /* You can add global styles to this file, and also import other style files */
 
-* {box-sizing: border-box;}
+* {box-sizing: border-box; color:#666}
 .container {max-width: 600px; margin: 0 auto;}
 
 body {
@@ -17,3 +17,4 @@ body {
   margin: 20px auto;
   height: 75px;
 }
+
