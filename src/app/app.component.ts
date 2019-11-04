@@ -1,3 +1,6 @@
+//where javascript is written for the component
+//class based.
+
 import { Component } from '@angular/core';
 
 @Component({
@@ -8,7 +11,7 @@ import { Component } from '@angular/core';
 })
 
 export class AppComponent {
-  title = 'Angular-test';
+  title = 'todo-Angular';
 
   }
 
