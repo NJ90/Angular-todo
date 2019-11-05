@@ -43,7 +43,7 @@ export class TodoListComponent implements OnInit {
     }
 
     this.todos.push({
-      id: this.idForTodo,//id값을 this에서 찾도록
+      id: this.idForTodo,//this에서 id값을 찾도록
       title: this.todoTitle,
       completed:false,
       editing:false
