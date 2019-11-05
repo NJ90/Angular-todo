@@ -1,20 +1,36 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../../interfaces/Todo';
+import { animate, transition, style, trigger } from '@angular/animations';
 
 @Component({
   selector: 'todo-list',
   templateUrl: './todo-list.component.html',
-  styleUrls: ['./todo-list.component.css']
+  styleUrls: ['./todo-list.component.css'],
+  animations: [
+    trigger('fade', [
+      transition(':enter', [
+      style({opacity:0, transform: 'translateY(30px)'}),
+      animate(500, style({ opacity:1, transform:'translateY(0px)'}))
+    ]),
+ 
+    transition(':leave', [
+      animate(500, style({ opacity:0, transform:'translateY(30px)'}))
+    ]),
+   ])
+  ]
 })
+
 export class TodoListComponent implements OnInit {
   todos: Todo[];//todo-list 배열 생성해줌
   todoTitle: string;
   idForTodo: number;
   beforeEditCache: string;//todo list 수정할 때 before이 어떤글이었는지 확인할 수 있도록
+  filter: string;
 
   constructor() { }
 
   ngOnInit() {
+    this.filter= 'all';
     this.beforeEditCache='';
     this.idForTodo = 4;
     this.todoTitle = '';
@@ -88,6 +104,21 @@ export class TodoListComponent implements OnInit {
 
   clearCompleted() : void{
     this.todos = this.todos.filter(todo => !todo.completed);
+  }
+
+  checkAllTodos(){
+    this.todos.forEach(todo => todo.completed = ( <HTMLInputElement>event.target).checked)
+  }
+
+  todosFiltered(): Todo[] {
+    if(this.filter ==='all'){
+      return this.todos
+    } else if (this.filter === 'active') {
+      return this.todos.filter(todo => !todo.completed)
+    } else if (this.filter === 'completed'){
+      return this.todos.filter(todo => todo.completed)
+    }
+    return this.todos
   }
 }
 

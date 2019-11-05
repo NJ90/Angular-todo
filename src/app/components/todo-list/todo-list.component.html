@@ -4,14 +4,15 @@
 <!--[(ngModel)]="todoTitle" syntex for 'Event and property'-->
 <!--(keyup.enter)="addTodo()" syntex for 'Element event / Component event / Directive event'-->
 
-<div class="todo-item" *ngFor="let todo of todos">
+<div class="todo-item" *ngFor="let todo of todosFiltered()" @fade>
+  <!-- @fade: animations 불러오기 -->
   <div class="todo-item-left">
     <input type="checkbox"  [(ngModel)]="todo.completed">
     <!-- [(ngModel)]="todo.completed" : when it's done //-->
-    <div *ngIf="!todo.editing; else editingTodo" class="todo-item-labe" [ngClass] ="{ 'completed' : todo.completed }" (dblclick)="editTodo(todo)">{{ todo.title }}</div><!--(dblclick)= double click handler-->
+    <div *ngIf="!todo.editing; else editingTodo" class="todo-item-labe" [ngClass] ="{ 'completed' : todo.completed }" (dblclick)="editTodo(todo)">{{ todo.title }}
     <!--*ngIf="!todo.editing; else editingTodo" 더블클릭했을 때 input을 보여주고 아닐경우 div를 보여줌 : 하단 ng-template과 같은 template 짝이 있어야함-->
     <!--[ngClass] ="{ 'completed' : todo.completed }" : checkbox의 ture or false에 따라 done or not에 따라 title에 completed class가 주어지게 함 -->
-    
+   </div><!--(dblclick)= double click handler-->
     <ng-template #editingTodo>
       <input type="text" class="todo-item-edit" [(ngModel)]="todo.title" (blur)="doneEdit(todo)" (keyup.enter)="doneEdit(todo)" (keyup.esc)="cancelEdit(todo)" autofocus> 
       <!--더블클릭했을 때 todo list를 수정할 수 있도록 보여줄 input박스 -->
@@ -26,16 +27,16 @@
 </div>
 
 <div class="extra-container">
-  <div><label><input type="checkbox"> Check All</label></div>
+  <div><label><input type="checkbox" (click)="checkAllTodos()"> Check All</label></div>
   <div>{{ remaining() }} items left</div>
-  <!-- remaining에서 텍스트 렌더링됨 -->
+  <!-- todo-list.component.ts > remaining에서 텍스트 렌더링됨 -->
 </div>
 
 <div class="extra-container">
     <div>
-        <button class="active">All</button>
-        <button disabled>Active</button>
-        <button>Completed</button>
+        <button [ngClass]="{'active' : filter === 'all'}" (click)="filter='all'">All</button>
+        <button [ngClass]="{'active' : filter === 'active'}" (click)="filter='active'">Active</button>
+        <button [ngClass]="{'active' : filter === 'completed'}" (click)="filter='completed'">Completed</button>
     </div>
     <div *ngIf ="atleastOneCompleted()">
         <button (click)="clearCompleted()">clear Completed</button>
@@ -58,9 +59,9 @@
   **Two-way sequence: view-to-source-to-view
     [(target)]="expression"
     bindon-target="expression"
+-->
 
-
-
+<!-- 
   [Built-in structural directives]
   **NgIf
   conditionally creates or destroys subviews from the template.
@@ -70,5 +71,4 @@
   
   **NgSwitch
   a set of directives that switch among alternative views.
-
--->
+ -->
