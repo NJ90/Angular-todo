@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { Todo } from '../../interfaces/Todo';
 
 @Component({
   selector: 'todo-list',
@@ -9,10 +10,12 @@ export class TodoListComponent implements OnInit {
   todos: Todo[];//todo-list 배열 생성해줌
   todoTitle: string;
   idForTodo: number;
+  beforeEditCache: string;//todo list 수정할 때 before이 어떤글이었는지 확인할 수 있도록
 
   constructor() { }
 
   ngOnInit() {
+    this.beforeEditCache='';
     this.idForTodo = 4;
     this.todoTitle = '';
     this.todos = [
@@ -20,7 +23,7 @@ export class TodoListComponent implements OnInit {
         'id':1,
         'title':'todo-1',
         'completed': false,
-        'editing': false,
+        'editing': false,//더블클릭했을 때 todo list를 수정할 수 있도록 
       },
       {
         'id':2,
@@ -53,17 +56,38 @@ export class TodoListComponent implements OnInit {
    this.idForTodo++;//아이디 값이 ++되도록
   }
 
+  editTodo(todo: Todo) : void {
+    this.beforeEditCache = todo.title;
+    todo.editing = true;
+  }
+
+  doneEdit(todo: Todo) : void{
+    if(todo.title.trim().length === 0){
+      todo.title = this.beforeEditCache;
+    }
+     todo.editing = false;
+  }//아무것도 쓰지 않았을때 이전 title로 보여짐
+
+  cancelEdit(todo: Todo) : void{
+      todo.title = this.beforeEditCache;
+      todo.editing = false;
+    }
 
   //delet
-  deleteTodo(id: Number):void{
+  deleteTodo(id: Number) : oid{
     this.todos = this.todos.filter(todo => todo.id !== id);
+  }
+
+  remaining() : number{
+  return this.todos.filter(todo => !todo.completed).length;
+  }
+
+  atleastOneCompleted() : boolean {
+    return this.todos.filter(todo => todo.completed).length > 0;
+  }//최소 한개가 completed일 때 clear completed 버튼이 생겨남
+
+  clearCompleted() : void{
+    this.todos = this.todos.filter(todo => !todo.completed);
   }
 }
 
-
-interface Todo{
-  id: number,
-  title: string,
-  completed: boolean,
-  editing: boolean
-}

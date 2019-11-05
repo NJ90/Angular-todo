@@ -6,8 +6,19 @@
 
 <div class="todo-item" *ngFor="let todo of todos">
   <div class="todo-item-left">
-    <input type="checkbox">
-    <div class="todo-item-label">{{ todo.title }}</div>
+    <input type="checkbox"  [(ngModel)]="todo.completed">
+    <!-- [(ngModel)]="todo.completed" : when it's done //-->
+    <div *ngIf="!todo.editing; else editingTodo" class="todo-item-labe" [ngClass] ="{ 'completed' : todo.completed }" (dblclick)="editTodo(todo)">{{ todo.title }}</div><!--(dblclick)= double click handler-->
+    <!--*ngIf="!todo.editing; else editingTodo" 더블클릭했을 때 input을 보여주고 아닐경우 div를 보여줌 : 하단 ng-template과 같은 template 짝이 있어야함-->
+    <!--[ngClass] ="{ 'completed' : todo.completed }" : checkbox의 ture or false에 따라 done or not에 따라 title에 completed class가 주어지게 함 -->
+    
+    <ng-template #editingTodo>
+      <input type="text" class="todo-item-edit" [(ngModel)]="todo.title" (blur)="doneEdit(todo)" (keyup.enter)="doneEdit(todo)" (keyup.esc)="cancelEdit(todo)" autofocus> 
+      <!--더블클릭했을 때 todo list를 수정할 수 있도록 보여줄 input박스 -->
+      <!-- autofocus : 더블클릭 후 input박스에 자동 커서 넣어짐, 한번만 작동하기 때문에 augular-autofocus-fix 를  install -->
+      <!-- (blur) : edit이 끝나면 블러처리 -->
+      <!-- (keyup.enter) when press the enter key  -->
+    </ng-template>
   </div>
   <div class="remove-item" (click)="deleteTodo(todo.id)">
     &times;
@@ -16,7 +27,8 @@
 
 <div class="extra-container">
   <div><label><input type="checkbox"> Check All</label></div>
-  <div>4 items left</div>
+  <div>{{ remaining() }} items left</div>
+  <!-- remaining에서 텍스트 렌더링됨 -->
 </div>
 
 <div class="extra-container">
@@ -25,8 +37,38 @@
         <button disabled>Active</button>
         <button>Completed</button>
     </div>
-    <div>
-        <button>clear Completed</button>
+    <div *ngIf ="atleastOneCompleted()">
+        <button (click)="clearCompleted()">clear Completed</button>
     </div>
 </div>
   
+
+<!--
+  [Binding syntax]
+
+  **From the source-to-view
+    {{expression}}
+    [target]="expression"
+    bind-target="expression"
+  
+  **From view-to-source
+    (target)="statement"
+    on-target="statement"
+
+  **Two-way sequence: view-to-source-to-view
+    [(target)]="expression"
+    bindon-target="expression"
+
+
+
+  [Built-in structural directives]
+  **NgIf
+  conditionally creates or destroys subviews from the template.
+  
+  **NgFor
+  repeat a node for each item in a list.
+  
+  **NgSwitch
+  a set of directives that switch among alternative views.
+
+-->

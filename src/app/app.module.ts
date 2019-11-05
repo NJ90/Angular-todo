@@ -9,6 +9,8 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { from } from 'rxjs';
+ 
+import { AutofocusModule } from 'angular-autofocus-fix';
 
 @NgModule({
   declarations: [
@@ -19,7 +21,8 @@ import { from } from 'rxjs';
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    FormsModule
+    FormsModule,
+    AutofocusModule
   ],
   providers: [],
   bootstrap: [AppComponent]
