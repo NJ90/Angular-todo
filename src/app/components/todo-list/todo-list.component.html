@@ -13,7 +13,7 @@
 (enteredItem)="doneEdit($event)" 
 (canceledItem)="cancelEdit($event)"
 (deletedItem)="deleteTodo($event)"
-></todo-item><!-- todo item의 모든 이벤트를 listen할 수 있게 위와같이 -->
+></todo-item><!-- todo item의 모든 이벤트를 listen / child.ts에 전달해줌-->
 <!-- todi-item 컴포넌트 분리 [todo] : child 컴포넌트로 data rendering / todo-item.componenet.ts @Input() todo: Todo; 와 연결
    <div class="todo-item" *ngFor="let todo of todosFiltered()" @fade>
   <div class="todo-item-left">

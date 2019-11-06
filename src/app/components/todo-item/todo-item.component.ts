@@ -37,5 +37,5 @@ export class TodoItemComponent implements OnInit {
   deleteTodo(todo : Todo) : void{
     this.deletedItem.emit(todo);
   }
-
+//parent(todo-list.component.html에서 전달한 event를 받음)
 }
