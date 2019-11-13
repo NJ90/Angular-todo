@@ -90,7 +90,7 @@ export class TodoListComponent implements OnInit {
     }
 
   //delet
-  deleteTodo(id: Number) : oid{
+  deleteTodo(id: Number) : void{
     this.todos = this.todos.filter(todo => todo.id !== id);
   }
 
