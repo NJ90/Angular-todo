@@ -11,11 +11,13 @@ import { TodoListComponent } from './components/todo-list/todo-list.component';
 import { from } from 'rxjs';
  
 import { AutofocusModule } from 'angular-autofocus-fix';
+import { TodoItemComponent } from './components/todo-item/todo-item.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoListComponent
+    TodoListComponent,
+    TodoItemComponent
   ],
   imports: [
     BrowserModule,
